@@ -1,0 +1,64 @@
+<div class="container py-4">
+  <ng-template #loading>
+    <div class="d-flex justify-content-center align-items-center" style="height:200px;">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-container *ngIf="reserva as r; else loading">
+    <div class="card mx-auto shadow-sm" style="max-width: 600px;">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Reserva #{{ r.id }}</h5>
+        <button (click)="goBack()" class="btn btn-outline-secondary btn-sm">
+          ← Volver
+        </button>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <i class="bi bi-person me-2"></i>
+          <strong>Cliente:</strong> {{ r.usuario.nombre }}
+          <br>
+        </li>
+        <li class="list-group-item">
+          <i class="bi bi-scissors me-2"></i>
+          <strong>Servicio:</strong> {{ r.tipoCorte.nombre }}
+        </li>
+        <li class="list-group-item">
+          <i class="bi bi-cash-coin me-2"></i>
+          <strong>Precio:</strong> S/{{ r.tipoCorte.precio | number:'1.0-2' }}
+        </li>
+        <li class="list-group-item">
+          <i class="bi bi-clock me-2"></i>
+          <strong>Duración:</strong> {{ r.tipoCorte.duracion }} minutos
+        </li>
+        <li class="list-group-item">
+          <i class="bi bi-calendar-event me-2"></i>
+          <strong>Fecha / Hora:</strong>
+          {{ r.fechaHora | date:'dd/MM/yyyy HH:mm' }}
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <i class="bi bi-info-circle me-2"></i>
+          <strong>Estado:</strong>
+          <span
+            class="badge"
+            [ngClass]="{
+              'bg-warning text-dark': r.estado==='PENDIENTE',
+              'bg-danger': r.estado==='CANCELADA',
+              'bg-success': r.estado==='COMPLETADA'
+            }"
+          >
+            {{ r.estado }}
+          </span>
+        </li>
+      </ul>
+      <div class="card-body text-end">
+        <button routerLink="/cliente/reservas" class="btn btn-secondary">
+          Lista de Reservas
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</div>
+

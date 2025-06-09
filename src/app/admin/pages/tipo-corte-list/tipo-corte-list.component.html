@@ -1,0 +1,60 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Tipos de Corte</h4>
+    <button class="btn btn-success" (click)="nuevo()">
+      <i class="bi bi-plus-circle me-1"></i> Nuevo Tipo
+    </button>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover table-striped align-middle mb-0">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Duración</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="tipos.length; else noData">
+        <tr *ngFor="let t of tipos">
+          <td>{{ t.id }}</td>
+          <td>{{ t.nombre }}</td>
+          <td>{{ t.descripcion }}</td>
+          <td>S/{{ t.precio | number:'1.0-2' }}</td>
+          <td>{{ t.duracion }} min</td>
+          <td class="text-center">
+            <button
+              class="btn btn-sm btn-outline-primary me-1"
+              (click)="editar(t.id)"
+              title="Editar"
+            >
+            EDITAR
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button
+              class="btn btn-sm btn-outline-danger"
+              (click)="borrar(t.id)"
+              title="Eliminar"
+            >
+            ELIMINAR
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noData>
+    <div class="p-4 text-center text-muted">
+      No hay tipos de corte registrados.
+    </div>
+  </ng-template>
+</div>

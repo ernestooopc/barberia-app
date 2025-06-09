@@ -1,0 +1,67 @@
+<div class="container py-4">
+  <div class="card mx-auto shadow-sm" style="max-width: 600px;">
+    <div class="card-body">
+      <h5 class="card-title mb-4">
+        {{ id ? 'Editar' : 'Nueva' }} Asignación
+      </h5>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="reservaId" class="form-label">Reserva</label>
+          <select
+            id="reservaId"
+            class="form-select"
+            formControlName="reservaId"
+          >
+            <option value="" disabled>-- elige reserva --</option>
+            <option *ngFor="let r of reservas" [value]="r.id">
+              {{ r.usuario.nombre }}
+              — {{ r.tipoCorte.nombre }} (S/{{ r.tipoCorte.precio }})
+              — {{ r.fechaHora | date:'short' }} [N° - {{ r.id }}]
+            </option>
+          </select>
+          <div
+            *ngIf="form.get('reservaId')?.invalid && form.get('reservaId')?.touched"
+            class="invalid-feedback d-block"
+          >
+            Debes seleccionar una reserva
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="barberoId" class="form-label">Barbero</label>
+          <select
+            id="barberoId"
+            class="form-select"
+            formControlName="barberoId"
+          >
+            <option value="" disabled>-- elige barbero --</option>
+            <option *ngFor="let b of barberos" [value]="b.id">
+              {{ b.nombre }}
+            </option>
+          </select>
+          <div
+            *ngIf="form.get('barberoId')?.invalid && form.get('barberoId')?.touched"
+            class="invalid-feedback d-block"
+          >
+            Debes seleccionar un barbero
+          </div>
+        </div>
+
+        <div class="d-grid">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="form.invalid"
+          >
+            {{ id ? 'Actualizar Asignación' : 'Crear Asignación' }}
+          </button>
+        </div>
+
+        <div *ngIf="error" class="alert alert-danger mt-3">
+          {{ error }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

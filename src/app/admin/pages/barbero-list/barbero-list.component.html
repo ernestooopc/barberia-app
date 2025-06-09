@@ -1,0 +1,58 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Barberos</h4>
+    <button class="btn btn-success" (click)="nuevo()">
+      <i class="bi bi-plus-circle me-1"></i> Nuevo Barbero
+    </button>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover table-striped align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>DNI</th>
+          <th>Experiencia</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="barberos.length; else noData">
+        <tr *ngFor="let b of barberos">
+          <td>{{ b.id }}</td>
+          <td>{{ b.nombre }}</td>
+          <td>{{ b.dni }}</td>
+          <td>{{ b.experienciaLaboral }}</td>
+          <td class="text-center">
+            <button
+              class="btn btn-sm btn-outline-primary me-1"
+              (click)="editar(b.id)"
+              title="Editar"
+            >
+            EDITAR
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button
+              class="btn btn-sm btn-outline-danger"
+              (click)="borrar(b.id)"
+              title="Eliminar"
+            >
+            ELIMINAR
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noData>
+    <div class="p-4 text-center text-muted">
+      No hay barberos registrados.
+    </div>
+  </ng-template>
+</div>

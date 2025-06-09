@@ -1,0 +1,66 @@
+<div class="container py-4">
+  <div class="card shadow-sm">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Asignaciones</h5>
+      <button class="btn btn-success btn-sm" (click)="nuevo()">
+        <i class="bi bi-plus-lg me-1"></i> Nueva Asignación
+      </button>
+    </div>
+
+    <div class="card-body p-0">
+      <div *ngIf="error" class="alert alert-danger m-3">
+        {{ error }}
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover table-striped mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>ID</th>
+              <th>Reserva</th>
+              <th>Barbero</th>
+              <th class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="asignaciones.length; else noData">
+            <tr *ngFor="let a of asignaciones">
+              <td>{{ a.id }}</td>
+              <td>
+                #{{ a.reserva.id }} —
+                {{ a.reserva.fechaHora | date:'dd/MM/yyyy HH:mm' }}
+              </td>
+              <td>
+                {{ a.barbero.nombre || '– Sin asignar –' }}
+              </td>
+              <td class="text-center">
+                <button
+                  class="btn btn-sm btn-outline-primary me-1"
+                  (click)="editar(a.id)"
+                  title="Editar"
+                >
+                EDITAR
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="borrar(a.id)"
+                  title="Eliminar"
+                >
+                ELIMINAR
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #noData>
+        <div class="p-4 text-center text-muted">
+          No hay asignaciones registradas.
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+

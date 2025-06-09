@@ -1,0 +1,92 @@
+<div class="container py-4">
+  <div class="card mx-auto shadow-sm" style="max-width: 600px;">
+    <div class="card-body">
+      <h5 class="card-title mb-4">
+        {{ id ? 'Editar Tipo de Corte' : 'Nuevo Tipo de Corte' }}
+      </h5>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input
+            id="nombre"
+            type="text"
+            class="form-control"
+            formControlName="nombre"
+            appUppercase
+            [ngClass]="{ 'is-invalid': form.get('nombre')?.invalid && form.get('nombre')?.touched }"
+            placeholder="Nombre del servicio"
+          />
+          <div class="invalid-feedback">
+            El nombre es obligatorio
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="descripcion" class="form-label">Descripción</label>
+          <input
+            id="descripcion"
+            type="text"
+            class="form-control"
+            formControlName="descripcion"
+            appUppercase
+            [ngClass]="{ 'is-invalid': form.get('descripcion')?.invalid && form.get('descripcion')?.touched }"
+            placeholder="Descripción del corte"
+          />
+          <div class="invalid-feedback">
+            La descripción es obligatoria
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="precio" class="form-label">Precio (S/.)</label>
+          <input
+            id="precio"
+            type="number"
+            class="form-control"
+            formControlName="precio"
+            [ngClass]="{ 'is-invalid': form.get('precio')?.invalid && form.get('precio')?.touched }"
+            placeholder="0.00"
+            min="0"
+            step="0.01"
+          />
+          <div class="invalid-feedback">
+            Debes indicar un precio válido
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="duracion" class="form-label">Duración (min)</label>
+          <input
+            id="duracion"
+            type="number"
+            class="form-control"
+            formControlName="duracion"
+            [ngClass]="{ 'is-invalid': form.get('duracion')?.invalid && form.get('duracion')?.touched }"
+            placeholder="Duración en minutos"
+            min="1"
+          />
+          <div class="invalid-feedback">
+            La duración es obligatoria y debe ser al menos 1 minuto
+          </div>
+        </div>
+
+        <div class="d-grid">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="form.invalid"
+          >
+
+            <i class="bi" [ngClass]="id ? 'bi-pencil-fill' : 'bi-plus-lg'"></i>
+            {{ id ? 'Actualizar Servicio' : 'Crear Servicio' }}
+          </button>
+        </div>
+
+        <div *ngIf="error" class="alert alert-danger mt-3 text-center">
+          {{ error }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="container py-4">
+  <div class="card mx-auto shadow-sm" style="max-width: 600px;">
+    <div class="card-body">
+      <h5 class="card-title mb-4">
+        {{ id ? 'Editar Barbero' : 'Nuevo Barbero' }}
+      </h5>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input
+            id="nombre"
+            type="text"
+            class="form-control"
+            formControlName="nombre"
+            appUppercase
+            [ngClass]="{ 'is-invalid': form.get('nombre')?.invalid && form.get('nombre')?.touched }"
+            placeholder="Nombre del barbero"
+          />
+          <div class="invalid-feedback">
+            El nombre es obligatorio
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="dni" class="form-label">DNI</label>
+          <input
+            id="dni"
+            type="text"
+            class="form-control"
+            formControlName="dni"
+            [ngClass]="{ 'is-invalid': form.get('dni')?.invalid && form.get('dni')?.touched }"
+            placeholder="DNI del barbero"
+          />
+          <div class="invalid-feedback">
+            El DNI debe tener al menos 8 caracteres
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="experienciaLaboral" class="form-label">Experiencia Laboral</label>
+          <textarea
+            id="experienciaLaboral"
+            class="form-control"
+            formControlName="experienciaLaboral"
+            appUppercase
+            [ngClass]="{ 'is-invalid': form.get('experienciaLaboral')?.invalid && form.get('experienciaLaboral')?.touched }"
+            rows="3"
+            placeholder="Ej. 5 años en corte y afeitado"
+          ></textarea>
+          <div class="invalid-feedback">
+            La experiencia es obligatoria
+          </div>
+        </div>
+
+        <div class="d-grid">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="form.invalid"
+          >
+            <i class="bi" [ngClass]="id ? 'bi-pencil-square' : 'bi-plus-lg'"></i>
+            {{ id ? 'Actualizar Barbero' : 'Crear Barbero' }}
+          </button>
+        </div>
+
+        <div *ngIf="error" class="alert alert-danger mt-3 text-center">
+          {{ error }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
