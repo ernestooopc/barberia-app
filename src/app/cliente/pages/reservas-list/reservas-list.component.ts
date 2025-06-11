@@ -68,24 +68,28 @@ export class ReservasListComponent implements OnInit {
 
 cancelar(id: number) {
   Swal.fire({
-        title: '¿Seguro que quieres cancelar la reserva?',
-        text: '¡Esta acción no se puede deshacer!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Sí, cancelar',
-        cancelButtonText: 'No, cancelar'
-      }).then(result => {
-        if (result.isConfirmed) {
-
-  this.reservaService.changeStatus(id, 'CANCELADA').subscribe({
-    next: updated => {
-      const idx = this.allReservas.findIndex(r => r.id === id);
-      this.allReservas[idx] = updated;
-      this.load();
-    },
-    error: () => this.error = 'No se pudo cancelar'
+    title: '¿Seguro que quieres cancelar la reserva?',
+    text: '¡Esta acción no se puede deshacer!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, cancelar',
+    cancelButtonText: 'No, cancelar'
+  }).then(result => {
+    if (result.isConfirmed) {
+      this.reservaService.cancelarReserva(id).subscribe({
+        next: (mensaje) => {
+  console.log(mensaje);
+  Swal.fire('Cancelado', mensaje, 'success');
+  this.load();
+},
+        error: (err) => {
+          console.error('Error al cancelar:', err);
+          this.error = 'No se pudo cancelar';
+        }
+      });
+    }
   });
-}})}
+}
 
 
 

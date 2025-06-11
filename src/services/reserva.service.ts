@@ -27,6 +27,7 @@ export interface Reserva {
 export interface ReservaCreate {
   usuario: { id: number };
   tipoCorte: { id: number };
+  barbero:{id:number};
   fechaHora: string;
 }
 
@@ -93,10 +94,15 @@ export class ReservaService {
     );
   }
 
-  // Eliminar reserva
-  deleteReserva(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
-  }
+
+  cancelarReserva(id: number): Observable<string> {
+  return this.http.patch<string>(
+    `${this.baseUrl}/${id}/cancelar`,
+    {},
+    { responseType: 'text' as 'json' }
+  );
+}
+
 
 
 }

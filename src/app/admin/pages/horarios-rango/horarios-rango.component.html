@@ -1,0 +1,33 @@
+<form [formGroup]="form" (ngSubmit)="generar()" class="p-3 border rounded shadow-sm">
+  <div class="mb-3">
+    <label>Barbero</label>
+    <select formControlName="barberoId" class="form-control">
+      <option *ngFor="let b of barberos" [value]="b.id">
+        {{ b.nombre }} {{ b.apellido }}
+      </option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Fecha</label>
+    <input type="date" formControlName="fecha" class="form-control" />
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      <label>Desde</label>
+      <input type="time" formControlName="inicio" class="form-control" />
+    </div>
+    <div class="col">
+      <label>Hasta</label>
+      <input type="time" formControlName="fin" class="form-control" />
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label>Intervalo (minutos)</label>
+    <input type="number" formControlName="intervaloMinutos" class="form-control" />
+  </div>
+
+  <button class="btn btn-primary w-100" type="submit" [disabled]="form.invalid">Generar horarios</button>
+</form>
