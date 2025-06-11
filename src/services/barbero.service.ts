@@ -5,14 +5,23 @@ import { Observable } from 'rxjs';
 export interface Barbero {
   id: number;
   nombre: string;
-  dni: string;
-  experienciaLaboral: string;
+  apellido: string;
+  correo: string;
+  telefono: string;
+  experienciaAnios: number;
+  especialidad: string;
+  fechaIngreso: string;
 }
 
 export interface BarberoCreate {
   nombre: string;
-  dni: string;
-  experienciaLaboral: string;
+  apellido: string;
+  correo: string;
+  telefono: string;
+  experienciaAnios: number;
+  especialidad: string;
+  fechaIngreso: string;
+
 }
 
 @Injectable({ providedIn: 'root' })

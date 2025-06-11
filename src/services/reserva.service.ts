@@ -6,8 +6,9 @@ export interface Reserva {
   id: number;
   usuario: {
     id: number;
-    nombre?: string;
-    correo?: string;
+    nombre: string;
+    apellido: string;
+    correo: string;
   };
   tipoCorte: {
     id: number;

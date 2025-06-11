@@ -42,6 +42,7 @@ export class RegisterComponent {
   ) {
     this.registerForm = this.fb.group({
       nombre:         ['', Validators.required],
+      apellido:         ['', Validators.required],
       correo:         ['', [Validators.required, Validators.email]],
       contrasena:     ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword:['', Validators.required],
@@ -52,10 +53,11 @@ export class RegisterComponent {
   onSubmit() {
     if (this.registerForm.invalid) return;
 
-    const { nombre, correo, contrasena, dni, tipoCliente } = this.registerForm.value;
+    const { nombre,apellido, correo, contrasena, tipoCliente } = this.registerForm.value;
 
     const nuevoUsuario: Usuario = {
       nombre,
+      apellido,
       correo,
       contrasena,
       rol: 'USUARIO',

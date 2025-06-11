@@ -13,13 +13,30 @@
             appUppercase
             class="form-control"
             [ngClass]="{ 'is-invalid': registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched }"
-            placeholder="TU NOMBRE"
+            placeholder="INGRESA TU NOMBRE COMPLETO"
             required
           />
           <div class="invalid-feedback">
             El nombre es obligatorio
           </div>
         </div>
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Apellido</label>
+          <input
+            id="apellido"
+            type="text"
+            formControlName="apellido"
+            appUppercase
+            class="form-control"
+            [ngClass]="{ 'is-invalid': registerForm.get('apellido')?.invalid && registerForm.get('apellido')?.touched }"
+            placeholder="INGRESA TU APELLIDOS COMPLETOS"
+            required
+          />
+          <div class="invalid-feedback">
+            El apellido es obligatorio
+          </div>
+        </div>
+
 
         <div class="mb-3">
           <label for="correo" class="form-label">Correo</label>

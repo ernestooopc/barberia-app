@@ -55,22 +55,6 @@
           </div>
         </div>
 
-        <div class="mb-4">
-          <label for="duracion" class="form-label">Duración (min)</label>
-          <input
-            id="duracion"
-            type="number"
-            class="form-control"
-            formControlName="duracion"
-            [ngClass]="{ 'is-invalid': form.get('duracion')?.invalid && form.get('duracion')?.touched }"
-            placeholder="Duración en minutos"
-            min="1"
-          />
-          <div class="invalid-feedback">
-            La duración es obligatoria y debe ser al menos 1 minuto
-          </div>
-        </div>
-
         <div class="d-grid">
           <button
             type="submit"

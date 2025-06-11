@@ -3,15 +3,17 @@ import { CommonModule } from '@angular/common';
 import { TipoCorteService, TipoCorte } from '../../../../services/tipoCorte.service';
 import { RouterModule, Router } from '@angular/router';
 import Swal from 'sweetalert2';
-
+import { FormsModule } from '@angular/forms';
 @Component({
   standalone: true,
   selector: 'app-tipo-corte-list',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule,FormsModule],
   templateUrl: './tipo-corte-list.component.html'
 })
 export class TipoCorteListComponent implements OnInit {
   tipos: TipoCorte[] = [];
+  filteredTipos: TipoCorte[] = [];
+  searchTerm: string = '';
   error: string | null = null;
 
   constructor(
@@ -27,10 +29,22 @@ export class TipoCorteListComponent implements OnInit {
 
   load() {
     this.svc.getAll().subscribe({
-      next: data => this.tipos = data,
+      next: data => {
+        this.tipos = data;
+        this.filteredTipos = data;
+        this.error = null;
+      },
       error: () => this.error = 'No se pudieron cargar los tipos'
     });
   }
+
+  applyFilter() {
+    const term = this.searchTerm.trim().toLowerCase();
+    this.filteredTipos = term
+      ? this.tipos.filter(t => t.nombre.toLowerCase().includes(term))
+      : [...this.tipos];
+  }
+
 
   borrar(id: number) {
     Swal.fire({

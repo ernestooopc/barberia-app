@@ -32,7 +32,6 @@ export class TipoCorteFormComponent implements OnInit {
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
       precio: [0, [Validators.required, Validators.min(0)]],
-      duracion: [0, [Validators.required, Validators.min(1)]]
     });
   }
 

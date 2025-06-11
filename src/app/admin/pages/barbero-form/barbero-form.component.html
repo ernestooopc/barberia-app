@@ -6,6 +6,7 @@
       </h5>
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <!-- Nombre -->
         <div class="mb-3">
           <label for="nombre" class="form-label">Nombre</label>
           <input
@@ -15,44 +16,95 @@
             formControlName="nombre"
             appUppercase
             [ngClass]="{ 'is-invalid': form.get('nombre')?.invalid && form.get('nombre')?.touched }"
-            placeholder="Nombre del barbero"
+            placeholder="Nombre"
           />
-          <div class="invalid-feedback">
-            El nombre es obligatorio
-          </div>
+          <div class="invalid-feedback">El nombre es obligatorio</div>
         </div>
 
+        <!-- Apellido -->
         <div class="mb-3">
-          <label for="dni" class="form-label">DNI</label>
+          <label for="apellido" class="form-label">Apellido</label>
           <input
-            id="dni"
+            id="apellido"
             type="text"
             class="form-control"
-            formControlName="dni"
-            [ngClass]="{ 'is-invalid': form.get('dni')?.invalid && form.get('dni')?.touched }"
-            placeholder="DNI del barbero"
+            formControlName="apellido"
+            appUppercase
+            [ngClass]="{ 'is-invalid': form.get('apellido')?.invalid && form.get('apellido')?.touched }"
+            placeholder="Apellido"
+          />
+          <div class="invalid-feedback">El apellido es obligatorio</div>
+        </div>
+
+        <!-- Correo -->
+        <div class="mb-3">
+          <label for="correo" class="form-label">Correo</label>
+          <input
+            id="correo"
+            type="email"
+            class="form-control"
+            formControlName="correo"
+            [ngClass]="{ 'is-invalid': form.get('correo')?.invalid && form.get('correo')?.touched }"
+            placeholder="correo@ejemplo.com"
           />
           <div class="invalid-feedback">
-            El DNI debe tener al menos 8 caracteres
+            {{ form.get('correo')?.hasError('required') ? 'El correo es obligatorio' : 'Formato inválido' }}
           </div>
         </div>
 
-        <div class="mb-4">
-          <label for="experienciaLaboral" class="form-label">Experiencia Laboral</label>
-          <textarea
-            id="experienciaLaboral"
+        <!-- Teléfono -->
+        <div class="mb-3">
+          <label for="telefono" class="form-label">Teléfono</label>
+          <input
+            id="telefono"
+            type="text"
             class="form-control"
-            formControlName="experienciaLaboral"
-            appUppercase
-            [ngClass]="{ 'is-invalid': form.get('experienciaLaboral')?.invalid && form.get('experienciaLaboral')?.touched }"
-            rows="3"
-            placeholder="Ej. 5 años en corte y afeitado"
-          ></textarea>
-          <div class="invalid-feedback">
-            La experiencia es obligatoria
-          </div>
+            formControlName="telefono"
+            [ngClass]="{ 'is-invalid': form.get('telefono')?.invalid && form.get('telefono')?.touched }"
+            placeholder="987654321"
+          />
+          <div class="invalid-feedback">El teléfono es obligatorio</div>
         </div>
 
+        <!-- Años de experiencia -->
+        <div class="mb-3">
+          <label for="experienciaAnios" class="form-label">Años de experiencia</label>
+          <input
+            id="experienciaAnios"
+            type="number"
+            class="form-control"
+            formControlName="experienciaAnios"
+            [ngClass]="{ 'is-invalid': form.get('experienciaAnios')?.invalid && form.get('experienciaAnios')?.touched }"
+            min="0"
+          />
+          <div class="invalid-feedback">Indica años de experiencia válidos</div>
+        </div>
+
+        <!-- Especialidad -->
+        <div class="mb-3">
+          <label for="especialidad" class="form-label">Especialidad</label>
+          <input
+            id="especialidad"
+            type="text"
+            class="form-control"
+            formControlName="especialidad"
+            [ngClass]="{ 'is-invalid': form.get('especialidad')?.invalid && form.get('especialidad')?.touched }"
+            placeholder="Ej. Corte clásico"
+          />
+          <div class="invalid-feedback">La especialidad es obligatoria</div>
+        </div>
+        <!-- Fecha de ingreso -->
+        <div class="mb-4">
+          <label for="fechaIngreso" class="form-label">Fecha de ingreso</label>
+          <input
+            id="fechaIngreso"
+            type="datetime-local"
+            class="form-control"
+            formControlName="fechaIngreso"
+          />
+        </div>
+
+        <!-- Botón Crear/Actualizar -->
         <div class="d-grid">
           <button
             type="submit"
@@ -64,6 +116,7 @@
           </button>
         </div>
 
+        <!-- Error global -->
         <div *ngIf="error" class="alert alert-danger mt-3 text-center">
           {{ error }}
         </div>

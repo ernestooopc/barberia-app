@@ -8,7 +8,6 @@ export interface TipoCorte {
   nombre: string;
   descripcion:string;
   precio: number;
-  duracion: number;
 }
 
 

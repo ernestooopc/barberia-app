@@ -3,17 +3,19 @@ import { CommonModule } from '@angular/common';
 import { BarberoService, Barbero } from '../../../../services/barbero.service';
 import { RouterModule, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
   selector: 'app-barbero-list',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule,FormsModule],
   templateUrl: './barbero-list.component.html'
 })
 export class BarberoListComponent implements OnInit {
   barberos: Barbero[] = [];
   error: string | null = null;
-
+  filteredBarberos: Barbero[] = [];
+  searchTerm: string = '';
   constructor(
     private svc: BarberoService,
     private router: Router
@@ -21,11 +23,24 @@ export class BarberoListComponent implements OnInit {
 
   ngOnInit() {
     this.load();
+
   }
+
+  applyFilterBarbero() {
+    const term = this.searchTerm.trim().toLowerCase();
+    this.filteredBarberos = term
+      ? this.barberos.filter(b => b.nombre.toLowerCase().includes(term))
+      : [...this.barberos];
+  }
+
 
   load() {
     this.svc.getAll().subscribe({
-      next: data => this.barberos = data,
+      next: data => {
+        this.barberos = data;
+        this.filteredBarberos = data;
+        this.error = null;
+      },
       error: () => this.error = 'No se pudieron cargar los barberos'
     });
   }

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AsignacionService, Asignacion } from '../../../../services/asignacion.service';
 import { RouterModule, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Reserva } from '../../../../services/reserva.service';
 
 @Component({
   standalone: true,
@@ -14,7 +15,7 @@ import Swal from 'sweetalert2';
 export class AsignacionListComponent implements OnInit {
   asignaciones: Asignacion[] = [];
   error: string | null = null;
-
+  reserva: Reserva[] = [];
   constructor(
     private svc: AsignacionService,
     private router: Router

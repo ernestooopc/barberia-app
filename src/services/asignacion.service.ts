@@ -5,9 +5,21 @@ import { Observable } from 'rxjs';
 
 export interface Asignacion {
   id: number;
-  reserva: { id: number; fechaHora?: string; };
-  barbero: { id: number; nombre?: string; };
+  reserva: {
+    id: number;
+    fechaHora: string;
+    usuario: {
+      id: number;
+      nombre: string;
+      apellido:string;
+    };
+  };
+  barbero: {
+    id: number;
+    nombre: string;
+  };
 }
+
 
 export interface AsignacionCreate {
   reserva: { id: number; };

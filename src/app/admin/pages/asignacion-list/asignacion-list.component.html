@@ -19,6 +19,7 @@
               <th>ID</th>
               <th>Reserva</th>
               <th>Barbero</th>
+              <th>CLIENTE</th>
               <th class="text-center">Acciones</th>
             </tr>
           </thead>
@@ -31,6 +32,9 @@
               </td>
               <td>
                 {{ a.barbero.nombre || '– Sin asignar –' }}
+              </td>
+              <td>
+                {{ a.reserva.usuario.nombre}}, {{a.reserva.usuario.apellido}}
               </td>
               <td class="text-center">
                 <button

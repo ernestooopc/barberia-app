@@ -5,6 +5,15 @@
       <i class="bi bi-plus-circle me-1"></i> Nuevo Tipo
     </button>
   </div>
+  <div class="mb-3">
+    <input
+      class="form-control"
+      type="text"
+      placeholder="Buscar por nombre..."
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="applyFilter()"
+    />
+  </div>
 
   <div *ngIf="error" class="alert alert-danger">
     {{ error }}
@@ -18,17 +27,15 @@
           <th>Nombre</th>
           <th>Descripción</th>
           <th>Precio</th>
-          <th>Duración</th>
           <th class="text-center">Acciones</th>
         </tr>
       </thead>
-      <tbody *ngIf="tipos.length; else noData">
-        <tr *ngFor="let t of tipos">
+      <tbody *ngIf="filteredTipos.length; else noData">
+        <tr *ngFor="let t of filteredTipos">
           <td>{{ t.id }}</td>
           <td>{{ t.nombre }}</td>
           <td>{{ t.descripcion }}</td>
           <td>S/{{ t.precio | number:'1.0-2' }}</td>
-          <td>{{ t.duracion }} min</td>
           <td class="text-center">
             <button
               class="btn btn-sm btn-outline-primary me-1"

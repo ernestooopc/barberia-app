@@ -29,10 +29,18 @@ export class BarberoFormComponent implements OnInit {
     private router: Router
   ) {
     this.form = this.fb.group({
-      nombre: ['', Validators.required],
-      dni: ['', [Validators.required, Validators.minLength(8)]],
-      experienciaLaboral: ['', Validators.required]
-    });
+  nombre:           ['', Validators.required],
+  apellido:         ['', Validators.required],
+  correo:           ['', [Validators.required, Validators.email]],
+  telefono:         ['', Validators.required],
+  experienciaAnios: [0, [Validators.required, Validators.min(0)]],
+  especialidad:     ['', Validators.required],
+  activo:           [true],   // switch o checkbox
+  fechaIngreso:     [        // por defecto hoy
+    new Date().toISOString().substring(0,16),
+    Validators.required
+  ]
+});
   }
 
   ngOnInit() {
