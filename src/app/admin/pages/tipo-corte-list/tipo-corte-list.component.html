@@ -27,6 +27,7 @@
           <th>Nombre</th>
           <th>Descripción</th>
           <th>Precio</th>
+          <th>Categoría</th>
           <th class="text-center">Acciones</th>
         </tr>
       </thead>
@@ -36,6 +37,7 @@
           <td>{{ t.nombre }}</td>
           <td>{{ t.descripcion }}</td>
           <td>S/{{ t.precio | number:'1.0-2' }}</td>
+          <td>{{ t.categoria?.nombre || '—' }}</td>
           <td class="text-center">
             <button
               class="btn btn-sm btn-outline-primary me-1"

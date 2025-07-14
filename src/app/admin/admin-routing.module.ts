@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard } from '../auth/AdminGuard';  // ajusta la ruta
-import { HorariosRangoComponent } from './pages/horarios-rango/horarios-rango.component';
 
 const routes: Routes = [
   {
@@ -79,6 +78,28 @@ const routes: Routes = [
         .then(m => m.HorariosRangoComponent),
           canActivate: [AdminGuard]
   },
+  {
+  path: 'categoria',
+  loadComponent: () =>
+    import('./pages/categoria-list/categoria-list.component')
+      .then(m => m.CategoriaListComponent),
+  canActivate: [AdminGuard]
+},
+{
+  path: 'categoria/nueva',
+  loadComponent: () =>
+    import('./pages/categoria-form/categoria-form.component')
+      .then(m => m.CategoriaFormComponent),
+  canActivate: [AdminGuard]
+},
+{
+  path: 'categoria/:id/editar',
+  loadComponent: () =>
+    import('./pages/categoria-form/categoria-form.component')
+      .then(m => m.CategoriaFormComponent),
+  canActivate: [AdminGuard]
+},
+
 
   { path: '', redirectTo: 'reservas', pathMatch: 'full' }
 

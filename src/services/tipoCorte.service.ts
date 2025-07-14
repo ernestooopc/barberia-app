@@ -2,12 +2,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
+import { Categoria } from './categoria.service';
 
 export interface TipoCorte {
   id: number;
   nombre: string;
   descripcion:string;
   precio: number;
+  categoriaId: number;
+  categoria?: { id: number; nombre: string };
 }
 
 

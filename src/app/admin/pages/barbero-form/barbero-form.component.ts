@@ -10,6 +10,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BarberoService, Barbero, BarberoCreate } from '../../../../services/barbero.service';
 import { UppercaseDirective } from '../../../../shared/nav/uppercase.directive';
 import Swal from 'sweetalert2';
+import { Categoria, CategoriaService } from '../../../../services/categoria.service';
 
 @Component({
   standalone: true,
@@ -21,12 +22,14 @@ export class BarberoFormComponent implements OnInit {
   form: FormGroup;
   id?: number;
   error: string | null = null;
+  categorias: Categoria[] = [];
 
   constructor(
     private fb: FormBuilder,
     private svc: BarberoService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private svcCategoria: CategoriaService
   ) {
     this.form = this.fb.group({
   nombre:           ['', Validators.required],
@@ -44,6 +47,10 @@ export class BarberoFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.svcCategoria.getAll().subscribe({
+  next: (data) => this.categorias = data,
+  error: () => this.error = 'No se pudieron cargar las categorías'
+});
     const param = this.route.snapshot.paramMap.get('id');
     if (param) {
       this.id = +param;

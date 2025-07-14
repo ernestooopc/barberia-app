@@ -10,6 +10,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { TipoCorteService, TipoCorte } from '../../../../services/tipoCorte.service';
 import { UppercaseDirective } from '../../../../shared/nav/uppercase.directive';
 import Swal from 'sweetalert2';
+import { Categoria, CategoriaService } from '../../../../services/categoria.service';
 
 @Component({
   standalone: true,
@@ -21,33 +22,46 @@ export class TipoCorteFormComponent implements OnInit {
   form: FormGroup;
   id?: number;
   error: string | null = null;
-
+  categorias: Categoria[] = [];
   constructor(
     private fb: FormBuilder,
     private svc: TipoCorteService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private svcCategoria: CategoriaService
   ) {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
       precio: [0, [Validators.required, Validators.min(0)]],
+      categoriaId: [null, Validators.required]
     });
   }
 
   ngOnInit() {
-    const param = this.route.snapshot.paramMap.get('id');
-    if (param) {
-      this.id = +param;
-      this.svc.getAll().subscribe({ // o un getById si lo tienes
-        next: data => {
-          const t = data.find(x => x.id === this.id)!;
-          this.form.patchValue(t);
-        },
-        error: () => this.error = 'No se pudo cargar el tipo'
-      });
-    }
+  // cargar categorías SIEMPRE
+  this.svcCategoria.getAll().subscribe({
+    next: (data) => this.categorias = data,
+    error: () => this.error = 'No se pudieron cargar las categorías'
+  });
+
+  // solo si estás editando
+  const param = this.route.snapshot.paramMap.get('id');
+  if (param) {
+    this.id = +param;
+    this.svc.getAll().subscribe({
+      next: data => {
+        const t = data.find(x => x.id === this.id)!;
+        this.form.patchValue({
+  ...t,
+  categoriaId: (t as any).categoria?.id ?? t.categoriaId
+});
+      },
+      error: () => this.error = 'No se pudo cargar el tipo'
+    });
   }
+}
+
 
   onSubmit() {
   if (this.form.invalid) return;
@@ -62,7 +76,13 @@ export class TipoCorteFormComponent implements OnInit {
     if (!result.isConfirmed) {
       return;
     }
-    const payload = this.form.value as Omit<TipoCorte, 'id'>;
+    const raw = this.form.value;
+
+const payload = {
+  ...raw,
+  categoria: { id: raw.categoriaId } // 👈 esto es lo que el backend espera
+};
+delete (payload as any).categoriaId;
     const obs = this.id
       ? this.svc.update(this.id, payload)
       : this.svc.create(payload);

@@ -1,0 +1,22 @@
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUpCustom 1s ease-out forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeInUpCustom {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+section {
+  scroll-snap-align: start;
+}
+
+html, body {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}

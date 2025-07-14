@@ -81,18 +81,11 @@
         </div>
 
         <!-- Especialidad -->
-        <div class="mb-3">
-          <label for="especialidad" class="form-label">Especialidad</label>
-          <input
-            id="especialidad"
-            type="text"
-            class="form-control"
-            formControlName="especialidad"
-            [ngClass]="{ 'is-invalid': form.get('especialidad')?.invalid && form.get('especialidad')?.touched }"
-            placeholder="Ej. Corte clásico"
-          />
-          <div class="invalid-feedback">La especialidad es obligatoria</div>
-        </div>
+        <label for="especialidad" class="form-label">Especialidad</label>
+        <select class="form-select" formControlName="especialidad" required>
+        <option [ngValue]="null" disabled selected>Seleccione una especialidad</option>
+        <option *ngFor="let c of categorias" [value]="c.nombre">{{ c.nombre }}</option>
+        </select>
         <!-- Fecha de ingreso -->
         <div class="mb-4">
           <label for="fechaIngreso" class="form-label">Fecha de ingreso</label>

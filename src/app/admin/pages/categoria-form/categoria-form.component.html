@@ -1,0 +1,39 @@
+<div class="container py-4">
+  <div class="card mx-auto shadow-sm" style="max-width: 600px;">
+    <div class="card-body">
+      <h5 class="card-title mb-4">
+        {{ id ? 'Editar Categoría' : 'Nueva Categoría' }}
+      </h5>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <!-- Nombre -->
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input
+            id="nombre"
+            type="text"
+            class="form-control"
+            formControlName="nombre"
+            appUppercase
+            placeholder="Ej. Infantil, Clásico, Urbano"
+            [ngClass]="{ 'is-invalid': form.get('nombre')?.invalid && form.get('nombre')?.touched }"
+          />
+          <div class="invalid-feedback">El nombre es obligatorio</div>
+        </div>
+
+        <!-- Botón Crear/Actualizar -->
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+            <i class="bi" [ngClass]="id ? 'bi-pencil-square' : 'bi-plus-lg'"></i>
+            {{ id ? 'Actualizar Categoría' : 'Crear Categoría' }}
+          </button>
+        </div>
+
+        <!-- Error general -->
+        <div *ngIf="error" class="alert alert-danger mt-3 text-center">
+          {{ error }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
